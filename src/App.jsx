@@ -4,9 +4,22 @@ import './App.css'; // Подключите ваш файл CSS
 const tg = window.Telegram.WebApp;
 const user = tg.initDataUnsafe.user;
 
+async function GetApp(userid){
+  let url = "http//mew//govno//ya//pisun//" + userid
+  let response = await fetch(url);
+
+  if (response.ok) { // если HTTP-статус в диапазоне 200-299
+    // получаем тело ответа (см. про этот метод ниже)
+    let json = await response.json();
+  } else {
+    alert("Ошибка HTTP: " + response.status);
+  }
+  return json
+}
+
 function App() {
   const [activeMenu, setActiveMenu] = useState('home');
-  const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [showProfileMenu, setShowProfileMenu] = useState(false);  
   const [contentAnimation, setContentAnimation] = useState('');
 
   const renderContent = () => {
@@ -105,7 +118,7 @@ function ProfileMenu({ show, toggleMenu }) {
       <p>Firstname: {user.first_name}</p>
       <p>User ID: {user.id}</p>
       <p>Username: {user.username}</p>
-      <p>language_code: {user.language_code}</p>
+      <p>language_code: {GetApp(user.id)}</p>
     </div>
   );
 }
