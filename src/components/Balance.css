@@ -1,0 +1,17 @@
+.balance {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #00CAE4;
+    padding: 10px 20px;
+    margin: 20px 0;
+    border-radius: 10px;
+  }
+  
+  .balance-title {
+    margin-right: 10px;
+  }
+  
+  .balance-amount {
+    font-size: 18px;
+  }

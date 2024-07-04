@@ -1,35 +1,113 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import './App.css'; // Подключите ваш файл CSS
+
+const tg = window.Telegram.WebApp;
+const user = tg.initDataUnsafe.user;
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [activeMenu, setActiveMenu] = useState('home');
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [contentAnimation, setContentAnimation] = useState('');
+
+  const renderContent = () => {
+    switch (activeMenu) {
+      case 'home':
+        return <HomeMenu />;
+      case 'details':
+        return <DetailsMenu />;
+      case 'nft':
+        return <NFTMenu />;
+      case 'other':
+        return <OtherMenu />;
+      case 'profile':
+        return <ProfileMenu show={showProfileMenu} toggleMenu={() => setShowProfileMenu(!showProfileMenu)} />;
+      default:
+        return <HomeMenu />;
+    }
+  };
+
+  const handleMenuChange = (menu) => {
+    if (activeMenu !== menu) {
+      setContentAnimation('hide');
+      setTimeout(() => {
+        setActiveMenu(menu);
+        setContentAnimation('');
+      }, 200); // Задержка должна быть равна длительности анимации slideOut
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="App">
+      <div className={`content ${contentAnimation}`}>
+        {renderContent()}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+      <div className="bottom-bar">
+        <button onClick={() => handleMenuChange('home')}>
+          <img src="imgs/icon.png" alt="Home" />
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+        <button onClick={() => handleMenuChange('details')}>
+          <img src="imgs/icon.png" alt="Details" />
+        </button>
+        <button onClick={() => handleMenuChange('nft')}>
+          <img src="imgs/icon.png" alt="NFT" />
+        </button>
+        <button onClick={() => handleMenuChange('other')}>
+          <img src="imgs/icon.png" alt="Other" />
+        </button>
+        <button onClick={() => handleMenuChange('profile')}>
+          <img src="/imgs/icon.png" alt="Profile" />
+        </button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+function HomeMenu() {
+  return (
+    <div>
+      <h1>Home Menu</h1>
+      {/* Вставьте ваш контент здесь */}
+    </div>
+  );
+}
+
+function DetailsMenu() {
+  return (
+    <div>
+      <h1>Details Menu</h1>
+      {/* Вставьте ваш контент здесь */}
+    </div>
+  );
+}
+
+function NFTMenu() {
+  return (
+    <div>
+      <h1>NFT Menu</h1>
+      {/* Вставьте ваш контент здесь */}
+    </div>
+  );
+}
+
+function OtherMenu() {
+  return (
+    <div>
+      <h1>Other Menu</h1>
+      {/* Вставьте ваш контент здесь */}
+    </div>
+  );
+}
+
+function ProfileMenu({ show, toggleMenu }) {
+  return (
+    <div className={`profile-menu ${show ? 'show' : ''}`}>
+      <h1>Профиль</h1>
+      <p>Firstname: {user.first_name}</p>
+      <p>User ID: {user.id}</p>
+      <p>Username: {user.username}</p>
+      <p>language_code: {user.language_code}</p>
+    </div>
+  );
+}
+
+export default App;

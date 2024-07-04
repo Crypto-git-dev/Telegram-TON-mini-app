@@ -1,0 +1,43 @@
+.bot-status {
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  .bot-amount {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+  
+  .bot-image {
+    background-color: #1D81E8;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+  }
+  
+  .bot-metrics {
+    margin-top: 20px;
+  }
+  
+  .metric {
+    margin: 10px 0;
+  }
+  
+  .metric-title {
+    margin-bottom: 5px;
+  }
+  
+  .metric-bar {
+    background-color: #444;
+    height: 10px;
+    border-radius: 5px;
+    position: relative;
+    width: 100%;
+  }
+  
+  .metric-bar-fill {
+    background: linear-gradient( to right, #1D81E8, #18EAF8);
+    height: 100%;
+    border-radius: 5px;
+  }
