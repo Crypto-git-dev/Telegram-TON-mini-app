@@ -10,12 +10,12 @@ SCREEN_NAME="front_site"
 PROJECT_DIR="/root/frontend/TONixHUB_frontend"
 
 # Убедитесь, что вы находитесь в правильной директории проекта
-if [ ! -d "$PROJECT_DIR/.git" ]; then
-    echo "Директория $PROJECT_DIR не является Git-репозиторием или не содержит .git директорию"
+if [ ! -d "$PROJECT_DIR" ]; then
+    echo "Директория $PROJECT_DIR не найдена"
     exit 1
 fi
 
-cd "$PROJECT_DIR" || { echo "Директория $PROJECT_DIR не найдена"; exit 1; }
+cd "$PROJECT_DIR" || { echo "Не удалось перейти в директорию $PROJECT_DIR"; exit 1; }
 
 # Проверка наличия git
 if ! command -v git &> /dev/null; then
@@ -60,12 +60,6 @@ fi
 
 # Запуск новой screen-сессии с билдом и запуском проекта
 echo "Запуск проекта в новой screen-сессии $SCREEN_NAME"
-screen -dmS "$SCREEN_NAME" bash -c "npm run build && npm run start"
+screen -dmS "$SCREEN_NAME" bash -c "npm run build && npm run start 2>&1 | tee $PROJECT_DIR/screen.log"
 
-# Проверка, что screen-сессия была успешно создана
-sleep 2
-if screen -list | grep -q "$SCREEN_NAME"; then
-    echo "Проект успешно задеплоен и запущен в screen-сессии $SCREEN_NAME"
-else
-    echo "Не удалось создать screen-сессию $SCREEN_NAME"
-fi
+echo "Проект успешно задеплоен и запущен в screen-сессии $SCREEN_NAME"
