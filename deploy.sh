@@ -10,12 +10,7 @@ SCREEN_NAME="front_site"
 PROJECT_DIR="/root/frontend/TONixHUB_frontend"
 
 # Убедитесь, что вы находитесь в правильной директории проекта
-if [ ! -d "$PROJECT_DIR" ]; then
-    echo "Директория $PROJECT_DIR не найдена"
-    exit 1
-fi
-
-cd "$PROJECT_DIR" || { echo "Не удалось перейти в директорию $PROJECT_DIR"; exit 1; }
+cd "$PROJECT_DIR" || { echo "Директория $PROJECT_DIR не найдена"; exit 1; }
 
 # Проверка наличия git
 if ! command -v git &> /dev/null; then
@@ -49,7 +44,7 @@ elif [ -f yarn.lock ]; then
     yarn install || { echo "Не удалось установить yarn-зависимости"; exit 1; }
 else
     echo "Файл package-lock.json или yarn.lock не найден. Проверьте наличие файла и повторите попытку."
-    exit 1
+    exit 1;
 fi
 
 # Остановка предыдущей screen-сессии, если она существует
@@ -58,8 +53,8 @@ if screen -list | grep -q "$SCREEN_NAME"; then
     screen -S "$SCREEN_NAME" -X quit
 fi
 
-# Запуск новой screen-сессии с билдом и запуском проекта
+# Запуск новой screen-сессии с командой для разработки
 echo "Запуск проекта в новой screen-сессии $SCREEN_NAME"
-screen -dmS "$SCREEN_NAME" bash -c "npm run build && npm run start 2>&1 | tee $PROJECT_DIR/screen.log"
+screen -dmS "$SCREEN_NAME" bash -c "npm run dev; exec bash"
 
 echo "Проект успешно задеплоен и запущен в screen-сессии $SCREEN_NAME"
