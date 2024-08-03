@@ -1,2 +1,9 @@
+# Frontend 
+React + Vite
 
-npm install react-router-dom crypto-js
+
+$ npm create vite@latest сборка папок 
+$ npm install
+$ npm run dev запуск App
+# TONixHUB_frontend
+# TONixHUB_frontend
