@@ -3,11 +3,11 @@
 # Название ветки для деплоя
 BRANCH="develop"
 
-# Название screen-сессии
-SCREEN_NAME="front_site"
-
 # Путь к проекту
 PROJECT_DIR="/root/frontend/TONixHUB_frontend"
+
+# Путь для сборки проекта
+BUILD_DIR="/var/www/html"
 
 # Убедитесь, что вы находитесь в правильной директории проекта
 cd "$PROJECT_DIR" || { echo "Директория $PROJECT_DIR не найдена"; exit 1; }
@@ -15,12 +15,6 @@ cd "$PROJECT_DIR" || { echo "Директория $PROJECT_DIR не найден
 # Проверка наличия git
 if ! command -v git &> /dev/null; then
     echo "Git не установлен. Пожалуйста, установите Git."
-    exit 1
-fi
-
-# Проверка наличия screen
-if ! command -v screen &> /dev/null; then
-    echo "Screen не установлен. Пожалуйста, установите Screen."
     exit 1
 fi
 
@@ -44,17 +38,25 @@ elif [ -f yarn.lock ]; then
     yarn install || { echo "Не удалось установить yarn-зависимости"; exit 1; }
 else
     echo "Файл package-lock.json или yarn.lock не найден. Проверьте наличие файла и повторите попытку."
-    exit 1;
+    exit 1
 fi
 
-# Остановка предыдущей screen-сессии, если она существует
-if screen -list | grep -q "$SCREEN_NAME"; then
-    echo "Остановка предыдущей screen-сессии $SCREEN_NAME"
-    screen -S "$SCREEN_NAME" -X quit
+# Сборка проекта
+echo "Сборка проекта"
+npm run build || { echo "Сборка проекта завершилась неудачей"; exit 1; }
+
+# Создание директории для сборки, если она не существует
+if [ ! -d "$BUILD_DIR" ]; then
+    echo "Создание директории $BUILD_DIR"
+    mkdir -p "$BUILD_DIR" || { echo "Не удалось создать директорию $BUILD_DIR"; exit 1; }
 fi
 
-# Запуск новой screen-сессии с командой для разработки
-echo "Запуск проекта в новой screen-сессии $SCREEN_NAME"
-screen -dmS "$SCREEN_NAME" bash -c "npm run dev; exec bash"
+# Очистка директории для сборки
+echo "Очистка директории $BUILD_DIR"
+rm -rf "$BUILD_DIR"/* || { echo "Не удалось очистить директорию $BUILD_DIR"; exit 1; }
 
-echo "Проект успешно задеплоен и запущен в screen-сессии $SCREEN_NAME"
+# Копирование новой сборки
+echo "Копирование новой сборки в $BUILD_DIR"
+cp -r "$PROJECT_DIR/build/"* "$BUILD_DIR" || { echo "Не удалось скопировать файлы в $BUILD_DIR"; exit 1; }
+
+echo "Проект успешно задеплоен в $BUILD_DIR"
