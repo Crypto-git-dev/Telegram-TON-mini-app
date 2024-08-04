@@ -4,13 +4,23 @@
 BRANCH="develop"
 
 # Путь к проекту
-PROJECT_DIR="/root/frontend/TONixHUB_frontend"
+PROJECT_DIR="/root/TONixHUB_frontend"
 
 # Путь для сборки проекта
 BUILD_DIR="/var/www/html"
 
 # Убедитесь, что вы находитесь в правильной директории проекта
 cd "$PROJECT_DIR" || { echo "Директория $PROJECT_DIR не найдена"; exit 1; }
+
+# Проверка наличия nvm и установка последней версии Node.js
+if command -v nvm &> /dev/null; then
+    echo "NVM установлен, обновление Node.js до последней версии"
+    nvm install node
+    nvm use node
+else
+    echo "NVM не установлен. Пожалуйста, установите NVM и повторите попытку."
+    exit 1
+fi
 
 # Проверка наличия git
 if ! command -v git &> /dev/null; then
