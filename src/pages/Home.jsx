@@ -17,7 +17,7 @@ const Home = () => {
     const {user, loading, error} = useUser(token);
 
     const toni_token = user?.robot_id ? createJWT({
-        id : user.robot_id,
+        robot_id : user.robot_id,
         data : createUnixTime(),
     }) : null;
 
@@ -107,6 +107,7 @@ const Home = () => {
                 }),
             });
             const data = await response.json();
+            console.log(data);
 
             const res = await fetch(`https://api.tonixhub.com/api/v1/toni_robot/${toni_token}`);
             const result = await res.json();
@@ -183,7 +184,7 @@ const Home = () => {
                         </div>
 
                         <div className="flex justify-center relative mt-[-2vh]"
-                             onClick={user.robot_id && !isFarming ? startFarm : undefined}>
+                             onClick={user.robot_id && !isFarming && energy === 100 ? startFarm : undefined}>
                             <img src={'/assets/circle.png'} className="absolute z-0 h-[44vh] w-[44vh]"
                             />
                             <img

@@ -3,6 +3,8 @@ import SideBar from '../components/SideBar.jsx';
 import RocketProgressBar from '../components/RocketProgressBar.jsx';
 import useUser from '../http/hooks/useUser.js';
 import {createJWT, createUnixTime, generateUserToken} from '../utils.js';
+import useRobot from '../http/hooks/useRobot.js';
+import {useEffect, useState} from 'react';
 
 
 const Nft = () => {
@@ -10,15 +12,36 @@ const Nft = () => {
     const userTg = tg.initDataUnsafe.user;
     const theme = tg.colorScheme;
 
-    const secretKey = import.meta.env.VITE_SECRET_KEY;
-    const robot = {
-        id : '66b30d5dd8149c8ec0b76b52',
-        data : createUnixTime(),
-    };
-    const tokenRobo = createJWT(robot, secretKey);
     const token = generateUserToken(userTg);
     const {user, loading, error} = useUser(token);
 
+    const toni_token = user?.robot_id ? createJWT({
+        id : user.id,
+        robot_id : user.robot_id,
+        data : createUnixTime(),
+    }) : null;
+
+    const userToken = createJWT({id : user.id, data : createUnixTime(),});
+
+    const robotData = useRobot(toni_token);
+
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`https://api.tonixhub.com/api/v1/get_airdrops/{token}`);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const result = await response.json();
+                setData(result);
+            } catch (error) {
+                throw new Error(error);
+            }
+        };
+        fetchData();
+    }, [toni_token]);
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
@@ -47,13 +70,19 @@ const Nft = () => {
 
                     {/*<div className="max-w-sm p-4 m-4">*/}
                     {/*    <p className="break-words">*/}
-                    {/*        {tokenRobo}*/}
+                    {/*        {toni_token}*/}
                     {/*    </p>*/}
                     {/*</div>*/}
 
                     {/*<div className="max-w-sm p-4 m-4">*/}
                     {/*    <p className="break-words">*/}
-                    {/*        {tokenRobo}*/}
+                    {/*        {task_token}*/}
+                    {/*    </p>*/}
+                    {/*</div>*/}
+
+                    {/*<div className="max-w-sm p-4 m-4">*/}
+                    {/*    <p className="break-words">*/}
+                    {/*        {JSON.stringify(data)}*/}
                     {/*    </p>*/}
                     {/*</div>*/}
 

@@ -1,7 +1,10 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Header from '../components/Header.jsx';
 import SideBar from '../components/SideBar.jsx';
 import RocketProgressBar from '../components/RocketProgressBar.jsx';
+import {createJWT, createUnixTime, generateUserToken} from '../utils.js';
+import useUser from '../http/hooks/useUser.js';
+import useRobot from '../http/hooks/useRobot.js';
 
 const AirDrop = () => {
     const games = [
@@ -18,27 +21,42 @@ const AirDrop = () => {
             icon : '/assets/airDropPlay.png',
         },
         {
-            title : 'Digital Dreams',
-            price : '1200 Tonix',
-            imgSrc : '/assets/gamePic.png',
-            icon : '/assets/airDropPlay.png',
-        },
-        {
-            title : 'Etheria Estates',
-            price : 'Subscribe',
-            imgSrc : '/assets/gamePic.png',
-            icon : '/assets/airDropPlay.png',
-        },
-        {
-            title : 'Etheria Estates',
-            price : 'Subscribe',
+            title : 'EtherQuest',
+            price : '2000 Tonix',
             imgSrc : '/assets/gamePic.png',
             icon : '/assets/airDropPlay.png',
         },
     ];
 
     const tg = window.Telegram.WebApp;
+    const userTg = tg.initDataUnsafe.user;
     const theme = tg.colorScheme;
+
+    const token = generateUserToken(userTg);
+    const {user, loading, error} = useUser(token);
+
+    const toni_token = user?.robot_id ? createJWT({
+        id : user.id,
+        robot_id : user.robot_id,
+        data : createUnixTime(),
+    }) : null;
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`https://api.tonixhub.com/api/v1/get_airdrops/{token}`);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const result = await response.json();
+                setData(result);
+            } catch (error) {
+                throw new Error(error);
+            }
+        };
+        fetchData();
+    }, []);
 
     return (
         <div
