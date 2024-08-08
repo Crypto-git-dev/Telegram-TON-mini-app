@@ -9,6 +9,7 @@ import AirDrop from './pages/AirDrop.jsx';
 import Nft from './pages/Nft.jsx';
 import BuySubcribe from './pages/BuySubcribe.jsx';
 import ChooseSubscribe from './pages/ChooseSubscribe.jsx';
+import Stats from './pages/Stats.jsx';
 
 export const RouteList = [
     {
@@ -45,6 +46,11 @@ export const RouteList = [
         path : '/choose-subscribe',
         title : 'Buy',
         element : <ChooseSubscribe/>,
+    },
+    {
+        path : '/stats',
+        title : 'Statistics',
+        element : <Stats/>,
     },
 ];
 
