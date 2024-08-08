@@ -4,16 +4,16 @@
 
 @font-face {
     font-family: 'Typingrad';
-    src: url("public/fonts/Typingrad.otf") format('woff2'),
-    url('public/fonts/Typingrad.otf') format('woff');
+    src: url("/fonts/Typingrad.otf") format('woff2'),
+    url('/fonts/Typingrad.otf') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Lego';
-    src: url("public/fonts/TheLegoMovie.ttf") format('woff2'),
-    url('public/fonts/TheLegoMovie.ttf') format('woff');
+    src: url("/fonts/TheLegoMovie.ttf") format('woff2'),
+    url('/fonts/TheLegoMovie.ttf') format('woff');
     font-weight: normal;
     font-style: normal;
 }

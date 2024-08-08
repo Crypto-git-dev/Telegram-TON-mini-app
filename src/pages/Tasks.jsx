@@ -8,38 +8,38 @@ const Tasks = () => {
         {
             title : 'Приветственный бонус',
             description : '@TonixHub',
-            reward : '500 TONIX',
+            reward : '500',
             progress : '100'
         },
         {
             title : 'Подпишись на канал',
             description : '@TonixHub',
-            reward : '1000 TONIX',
+            reward : '1000',
             progress : '75'
         },
         {
             title : 'Подключи TonKeeper',
             description : 'Подключите крипто кошелек через Telegram',
-            reward : '2000 TONIX',
+            reward : '2000',
             progress : '25'
         },
         {
             title : 'Подпишись на TONIX',
             description : '@TonixHub',
-            reward : '500 TONIX',
+            reward : '500',
             progress : '100'
         },
         {
             title : 'Подпишись на TONIX',
             description : '@TonixHub',
-            reward : '500 TONIX',
+            reward : '500',
             progress : '100'
         }
     ];
 
-    // const tg = window.Telegram.WebApp;
-    // const theme = tg.colorScheme;
-    const theme = 'dark';
+    const tg = window.Telegram.WebApp;
+    const theme = tg.colorScheme;
+
 
     return (
         <div

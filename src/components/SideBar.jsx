@@ -13,7 +13,7 @@ const SideBar = () => {
                  width : '96%',
                  maxWidth : '600px',
                  margin : ' auto',
-                 backgroundImage : `url(/src/assets/gradient1.webp)`,
+                 backgroundImage : `url(/assets/gradient1.webp)`,
                  backgroundPosition : 'center',
                  backgroundSize : '150% 160%',
                  boxShadow : 'none',
@@ -21,29 +21,29 @@ const SideBar = () => {
         >
             <Link to="/">
                 <div className={`${isActive('/') ? activeStyles : ''}`}>
-                    <img src={`/src/assets/${isActive('/') ? 'playActive' : 'play'}.png`} className={`w-8 h-8`}/>
+                    <img src={`/assets/${isActive('/') ? 'playActive' : 'play'}.png`} className={`w-8 h-8`}/>
                 </div>
             </Link>
             <Link to="/tasks">
                 <div className={`${isActive('/tasks') ? activeStyles : ''}`}>
-                    <img src={`/src/assets/${isActive('/tasks') ? 'tasksActive' : 'tasks'}.png`} className={`w-8 h-8`}/>
+                    <img src={`/assets/${isActive('/tasks') ? 'tasksActive' : 'tasks'}.png`} className={`w-8 h-8`}/>
                 </div>
             </Link>
             <Link to="/nft">
                 <div className={`${isActive('/nft') ? activeStyles : ''}`}>
-                    <img src="/src/assets/nft.png" className={`w-8 h-8`}/>
+                    <img src="/assets/nft.png" className={`w-8 h-8`}/>
                 </div>
             </Link>
             <Link to="/airdrop">
                 <div className={`${isActive('/airdrop') ? activeStyles : ''}`}>
-                    <img src={`/src/assets/${isActive('/airdrop') ? 'airdropActive' : 'airdrop'}.png`}
+                    <img src={`/assets/${isActive('/airdrop') ? 'airdropActive' : 'airdrop'}.png`}
                          className={`w-8 h-8 `}/>
                 </div>
             </Link>
             <Link to="/buy-subscribe">
                 <div className={`${isActive('/buy-subscribe') ? activeStyles : ''}`}>
                     <img
-                        src={`/src/assets/${isActive('/buy-subscribe' || '/choose-subscribe') ? 'personActive' : 'person'}.png`}
+                        src={`/assets/${isActive('/buy-subscribe' || '/choose-subscribe') ? 'personActive' : 'person'}.png`}
                         className={`w-8 h-8`}/>
                 </div>
             </Link>

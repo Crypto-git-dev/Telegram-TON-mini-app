@@ -47,7 +47,7 @@ const Profile = () => {
                 className={`flex flex-col h-screen relative z-10 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
                 <div className="flex items-center justify-between p-4">
                     <div className="flex items-center">
-                        <img src={'/src/assets/headPerson.png'} alt="Profile"
+                        <img src={'/assets/headPerson.png'} alt="Profile"
                              className="w-18 h-16"/>
                         <div className="ml-2">
                             <div className="text-lg font-bold">Привет,</div>
@@ -55,7 +55,7 @@ const Profile = () => {
                         </div>
                     </div>
                     <div className="flex items-center">
-                        <img src={`/src/assets/${theme === 'dark' ? 'levelDark.png' : 'level.png'}`}
+                        <img src={`/assets/${theme === 'dark' ? 'levelDark.png' : 'level.png'}`}
                              className="w-12 h-12"/>
                         <div className="ml-2 text-lg">{user.profile_lvl} lvl</div>
                     </div>
@@ -65,45 +65,45 @@ const Profile = () => {
                     <button
                         className="flex items-center justify-center w-80 py-2 rounded-full shadow-md text-black text-lg font-bold"
                         style={{
-                            backgroundImage : `url('/src/assets/gradient1.jpg')`,
+                            backgroundImage : `url('/assets/gradient1.jpg')`,
                             backgroundSize : 'cover',
                             backgroundPosition : 'center',
                             backgroundRepeat : 'no-repeat'
                         }}>
-                        <img src={'/src/assets/coin.png'} className="w-6 h-4 mr-2"/>
+                        <img src={'/assets/coin.png'} className="w-6 h-4 mr-2"/>
                         Подключить кошелек
                     </button>
                 </div>
 
                 <div className="w-full px-4 flex justify-center">
-                    <img src={'/src/assets/rocketLine.png'}/>
+                    <img src={'/assets/rocketLine.png'}/>
                 </div>
 
                 <div className="p-4">
                     <MenuItem
-                        icon="/src/assets/idIcon.png"
+                        icon="/assets/idIcon.png"
                         title="Мой ID"
-                        rightContent={<span className="text-lg">{user.id}</span>}
+                        rightContent={<span className="text-lg">{user1.id}</span>}
                     />
                     <MenuItem
-                        icon="/src/assets/languageIcon.png"
+                        icon="/assets/languageIcon.png"
                         title="Язык"
-                        rightContent={<span className="flex items-center"><img src="/src/assets/rus.png"
+                        rightContent={<span className="flex items-center"><img src="/assets/rus.png"
                                                                                className="w-6 h-6 mr-2"/>Rus</span>}
                     />
                     <MenuItem
-                        icon="/src/assets/themeIcon.png"
+                        icon="/assets/themeIcon.png"
                         title="Тема"
                         rightContent={<span className="flex items-center"><img
-                            src={`/src/assets/${theme === 'dark' ? 'darkThemeIcon.png' : 'lightThemeIcon.png'}`}
+                            src={`/assets/${theme === 'dark' ? 'darkThemeIcon.png' : 'lightThemeIcon.png'}`}
                             className="w-6 h-6 mr-2"/>{theme === 'dark' ? 'Темная' : 'Светлая'}</span>}
                     />
                     <MenuItem
-                        icon="/src/assets/friendsIcon.png"
+                        icon="/assets/friendsIcon.png"
                         title="Пригласить друзей"
                     />
                     <MenuItem
-                        icon="/src/assets/supportIcon.png"
+                        icon="/assets/supportIcon.png"
                         title="Поддержка"
                     />
                 </div>

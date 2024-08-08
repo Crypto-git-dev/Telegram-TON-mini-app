@@ -8,32 +8,32 @@ const AirDrop = () => {
         {
             title : 'Join the Quest',
             level : '3 lvl',
-            imgSrc : '/src/assets/gamePic.png',
-            icon : '/src/assets/airDropPlay.png',
+            imgSrc : '/assets/gamePic.png',
+            icon : '/assets/airDropPlay.png',
         },
         {
             title : 'EtherQuest',
             price : '2000 Tonix',
-            imgSrc : '/src/assets/gamePic.png',
-            icon : '/src/assets/airDropPlay.png',
+            imgSrc : '/assets/gamePic.png',
+            icon : '/assets/airDropPlay.png',
         },
         {
             title : 'Digital Dreams',
             price : '1200 Tonix',
-            imgSrc : '/src/assets/gamePic.png',
-            icon : '/src/assets/airDropPlay.png',
+            imgSrc : '/assets/gamePic.png',
+            icon : '/assets/airDropPlay.png',
         },
         {
             title : 'Etheria Estates',
             price : 'Subscribe',
-            imgSrc : '/src/assets/gamePic.png',
-            icon : '/src/assets/airDropPlay.png',
+            imgSrc : '/assets/gamePic.png',
+            icon : '/assets/airDropPlay.png',
         },
         {
             title : 'Etheria Estates',
             price : 'Subscribe',
-            imgSrc : '/src/assets/gamePic.png',
-            icon : '/src/assets/airDropPlay.png',
+            imgSrc : '/assets/gamePic.png',
+            icon : '/assets/airDropPlay.png',
         },
     ];
 
@@ -62,7 +62,7 @@ const AirDrop = () => {
                     <button
                         className="flex items-center justify-center w-80 py-2 mb-5 mt-4 rounded-full shadow-md text-black text-lg"
                         style={{
-                            backgroundImage : `url('/src/assets/gradient1.webp')`,
+                            backgroundImage : `url('/assets/gradient1.webp')`,
                             backgroundSize : 'cover',
                             backgroundPosition : 'center',
                             backgroundRepeat : 'no-repeat'
