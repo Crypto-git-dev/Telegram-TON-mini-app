@@ -1,8 +1,8 @@
 import React from 'react';
 import SideBar from '../components/SideBar.jsx';
 import useUser from '../http/hooks/useUser.js';
-import backgroundImageDark from '../assets/rocketBgDark1.png';
-import backgroundImage from '../assets/rocketBgWhite.png';
+import backgroundImageDark from '/assets/rocketBgDark1.png';
+import backgroundImage from '/assets/rocketBgWhite.png';
 
 
 const Profile = () => {
