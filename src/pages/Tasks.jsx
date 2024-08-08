@@ -38,12 +38,21 @@ const Tasks = () => {
         fetchData();
     }, [task_token]);
 
+    const updateTaskStatus = (taskId, status) => {
+        setTasks(prevTasks =>
+            prevTasks.map(task =>
+                task.id === taskId ? {...task, status} : task
+            )
+        );
+    };
+
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
 
     return (
         <div
-            className={`h-screen flex flex-col ${theme === 'dark' ? 'bg-[#10152C] text-white' : 'bg-white text-black'}`}>
+            className={`h-screen flex flex-col ${theme === 'dark' ? 'bg-[#10152C] text-white' : 'bg-white text-black'}`}
+        >
             <div className="fixed top-0 w-full z-10">
                 <Header/>
                 <div className={'mt-[17%] ml-7'}>
@@ -56,7 +65,8 @@ const Tasks = () => {
                 style={{
                     boxShadow : '0 4px 20px rgba(0, 255, 252, 0.5)',
                     borderTop : '1px solid #00FFFC'
-                }}>
+                }}
+            >
                 <div className="text-center">
                     <h1 className="text-3xl font-lego font-bold">TASKS</h1>
                     <p className="text-xs">Выполняй задания и зарабатывай больше</p>
@@ -66,6 +76,7 @@ const Tasks = () => {
                         <TaskItem
                             key={index}
                             task={task}
+                            updateTaskStatus={updateTaskStatus}
                         />
                     ))}
                 </div>

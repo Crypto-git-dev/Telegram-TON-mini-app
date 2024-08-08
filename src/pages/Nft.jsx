@@ -21,6 +21,19 @@ const Nft = () => {
         data : createUnixTime(),
     }) : null;
 
+    const task_token = user?.robot_id ? createJWT({
+        id : user.id,
+        robot_id : user.robot_id,
+        data : createUnixTime(),
+    }) : null;
+
+    const task_token1 = createJWT({
+        id : user.id,
+        task_id : '66b499f6724091c0f99e80f2',
+        type : 'channel',
+        data : createUnixTime(),
+    });
+
     const userToken = createJWT({id : user.id, data : createUnixTime(),});
 
     const robotData = useRobot(toni_token);
@@ -74,11 +87,11 @@ const Nft = () => {
                     {/*    </p>*/}
                     {/*</div>*/}
 
-                    {/*<div className="max-w-sm p-4 m-4">*/}
-                    {/*    <p className="break-words">*/}
-                    {/*        {task_token}*/}
-                    {/*    </p>*/}
-                    {/*</div>*/}
+                    <div className="max-w-sm p-4 m-4">
+                        <p className="break-words">
+                            {task_token1}
+                        </p>
+                    </div>
 
                     {/*<div className="max-w-sm p-4 m-4">*/}
                     {/*    <p className="break-words">*/}

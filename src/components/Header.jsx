@@ -14,7 +14,7 @@ const Header = () => {
     const {user, loading, error} = useUser(token);
 
     const toni_token = user?.robot_id ? createJWT({
-        id : user.robot_id,
+        robot_id : user.robot_id,
         data : createUnixTime(),
     }) : null;
 
@@ -31,7 +31,6 @@ const Header = () => {
                 <Link to="/profile">
                     <div className={'mt-2 w-[60px] h-[60px]'}>
                         <img src="/assets/headPerson.png"/>
-                        {/*<img src={`${tg.photo_url}`}/>*/}
                     </div>
                 </Link>
                 <div className={''}>
@@ -39,7 +38,6 @@ const Header = () => {
                         <div
                             className={`text-sm  font-bold ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
                             {userTg.username.length > 20 ? `${userTg.username.slice(0, 10)}...` : userTg.username}
-                            {/*{user1.username.length > 20 ? '...' : user1.username}*/}
                         </div>
                     </Link>
                     <div className="flex items-center text-gray-700">
@@ -65,7 +63,7 @@ const Header = () => {
                 <div className="flex items-center justify-center w-full">
                     <img src="/assets/coin.png" alt="icon" className="w-6 h-4 mr-2"/>
                     <span
-                        className="text-xs text-black font-typingrad">{user.robot_id ? formatNumberWithSpaces(Number(user.crypto_data.tonix.balance) + robot?.mining_data?.total_amount || 0) : 0}</span>
+                        className="text-xs text-black font-typingrad">{user.robot_id ? formatNumberWithSpaces(user.crypto_data.tonix.balance + robot?.mining_data?.total_amount) : 0}</span>
                     <span className="text-xs text-black font-typingrad ml-1">TONIX</span>
                 </div>
                 {isExpanded && (
@@ -74,11 +72,11 @@ const Header = () => {
                         <div className="flex items-center mb-2 w-full justify-center">
                             <img src="/assets/ton.png" alt="icon" className="w-4 h-4 mr-5"/>
                             <span
-                                className="text-xs text-black font-typingrad">{formatNumberWithSpaces(user.crypto_data.tonix.balance)}</span>
+                                className="text-xs text-black font-typingrad">{formatNumberWithSpaces(user.crypto_data.ton.balance)}</span>
                             <span className="text-xs text-black font-typingrad ml-1">TON</span>
                         </div>
                         <button
-                            className="w-full text-xs border-solid border-2 border-black text-black rounded-full shadow-md">Получить
+                            className="w-full px-[8vw] text-xs border-solid border-2 border-black text-black rounded-full shadow-md">Получить
                         </button>
                     </div>
                 )}
