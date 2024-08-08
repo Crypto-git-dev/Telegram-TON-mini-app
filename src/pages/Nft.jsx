@@ -28,7 +28,7 @@ const Nft = () => {
     const [error1, setError] = useState(null);
 
     const [data, setData] = useState({});
-
+    console.log(1);
     // useEffect(() => {
     //     const fetchData = async () => {
     //         try {
