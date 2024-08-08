@@ -12,10 +12,13 @@ const TaskItem = ({task, updateTaskStatus}) => {
     const taskStatus = task.status && task.status !== 'claimed' ? Number(task.status) : 0;
 
     const handleClick = async () => {
-        if (task.status === '100' && (task.type === 'link' || task.type === 'channel')) {
+        if (task.status === 'claimed') {
+            return; // Не выполнять действия для задач со статусом 'claimed'
+        }
+        if (task.status === '100') {
             await claimReward();
-            updateTaskStatus(task.id, 'claimed');
-        } else if (task.type === 'link' || task.type === 'channel') {
+            updateTaskStatus(task.id, 'claimed', Number(task.amount));
+        } else if (task.status !== '100' && (task.type === 'link' || task.type === 'channel')) {
             try {
                 window.open(task.data, '_blank');
                 const task_token = createJWT({
@@ -24,7 +27,6 @@ const TaskItem = ({task, updateTaskStatus}) => {
                     type : task.type,
                     data : createUnixTime(),
                 });
-
                 const response = await fetch(`https://api.tonixhub.com/api/v1/users/webhook?token=${task_token}`, {
                     method : 'POST',
                     headers : {
@@ -36,7 +38,6 @@ const TaskItem = ({task, updateTaskStatus}) => {
                 }
                 const result = await response.json();
                 updateTaskStatus(task.id, '100');
-
                 console.log('POST request successful:', result);
             } catch (error) {
                 console.error('Error in POST request:', error);
@@ -53,7 +54,6 @@ const TaskItem = ({task, updateTaskStatus}) => {
                 asset : 'tonix',
                 data : createUnixTime(),
             });
-
             const response = await fetch(`https://api.tonixhub.com/api/v1/users/task/claim?token=${task_token}`, {
                 method : 'POST',
                 headers : {
@@ -64,7 +64,6 @@ const TaskItem = ({task, updateTaskStatus}) => {
                 throw new Error('Network response was not ok');
             }
             const result = await response.json();
-            updateTaskStatus(task.id, 'claimed');
             console.log('POST request successful:', result);
         } catch (error) {
             console.error('Error in POST request:', error);
@@ -74,7 +73,7 @@ const TaskItem = ({task, updateTaskStatus}) => {
     return (
         <div
             className={`px-4 py-2 flex items-center justify-between max-w-96 relative cursor-pointer`}
-            onClick={handleClick}
+            onClick={task.status !== 'claimed' ? handleClick : null}
         >
             <div
                 className={`flex-1 p-2 rounded-3xl shadow-md relative overflow-hidden ${theme === 'dark' ? 'bg-[#323870] text-white' : 'bg-[#E8F6FF] text-black'}`}
@@ -93,7 +92,6 @@ const TaskItem = ({task, updateTaskStatus}) => {
                     {task.status === '100' ? (
                         <button
                             className="bg-[#00FFFC] text-s text-[#323870] z-20 font-bold py-1 px-4 rounded-lg my-1"
-                            onClick={claimReward}
                         >
                             Забрать
                         </button>

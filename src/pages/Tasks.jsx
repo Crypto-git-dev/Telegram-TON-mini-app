@@ -21,29 +21,32 @@ const Tasks = () => {
     }) : null;
 
     const [tasks, setTasks] = useState([]);
+    const fetchData = async () => {
+        try {
+            const response = await fetch(`https://api.tonixhub.com/api/v1/task/gettasks/${task_token}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const result = await response.json();
+            setTasks(result);
+        } catch (error) {
+            throw new Error(error);
+        }
+    };
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(`https://api.tonixhub.com/api/v1/task/gettasks/${task_token}`);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const result = await response.json();
-                setTasks(result);
-            } catch (error) {
-                throw new Error(error);
-            }
-        };
         fetchData();
     }, [task_token]);
 
-    const updateTaskStatus = (taskId, status) => {
+    const updateTaskStatus = async (taskId, status, amount = 0) => {
         setTasks(prevTasks =>
             prevTasks.map(task =>
                 task.id === taskId ? {...task, status} : task
             )
         );
+        if (status === 'claimed') {
+            await fetchData(); // Повторный вызов fetchData для обновления баланса и задач
+        }
     };
 
     if (loading) return <div>Loading...</div>;

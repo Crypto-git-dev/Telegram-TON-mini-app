@@ -31,6 +31,7 @@ const Nft = () => {
         id : user.id,
         task_id : '66b499f6724091c0f99e80f2',
         type : 'channel',
+        asset : 'tonix',
         data : createUnixTime(),
     });
 
@@ -87,11 +88,11 @@ const Nft = () => {
                     {/*    </p>*/}
                     {/*</div>*/}
 
-                    <div className="max-w-sm p-4 m-4">
-                        <p className="break-words">
-                            {task_token1}
-                        </p>
-                    </div>
+                    {/*<div className="max-w-sm p-4 m-4">*/}
+                    {/*    <p className="break-words">*/}
+                    {/*        {task_token1}*/}
+                    {/*    </p>*/}
+                    {/*</div>*/}
 
                     {/*<div className="max-w-sm p-4 m-4">*/}
                     {/*    <p className="break-words">*/}
