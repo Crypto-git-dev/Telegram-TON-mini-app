@@ -37,7 +37,11 @@ const Header = () => {
                     <Link to="/profile">
                         <div
                             className={`text-sm  font-bold ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-                            {userTg.username.length > 20 ? `${userTg.username.slice(0, 10)}...` : userTg.username}
+                            {userTg.username
+                                ? (userTg.username.length > 20
+                                    ? `${userTg.username.slice(0, 10)}...`
+                                    : userTg.username)
+                                : userTg.id}
                         </div>
                     </Link>
                     <div className="flex items-center text-gray-700">
