@@ -1,36 +1,60 @@
-import React from 'react';
+import React, {useState} from 'react';
 import SideBar from '../components/SideBar.jsx';
 import useUser from '../http/hooks/useUser.js';
-import backgroundImageDark from '../assets/rocketBgDark1.png';
-import backgroundImage from '../assets/rocketBgWhite.png';
+import backgroundImageDark from '/assets/rocketBgDark1.png';
+import backgroundImage from '/assets/rocketBgWhite.png';
+import {generateUserToken} from '../utils.js';
 
 
 const Profile = () => {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTExMTEsInVzZXJuYW1lIjoiZ3JlZ2VyZXJnIiwiYmlvIjp7ImZpcnN0X25hbWUiOiJxd3dlZnd3ZWYiLCJsYXN0X25hbWUiOiJlcmdlIiwibGFuZ3VhZ2UiOiJ3cWQifSwiaWF0IjoxNzIxOTMzMDcyfQ.aXM7KJjCutpqWEzEjwQr0CGAtpUKmz9Y-8HRhiooO-E';
+    const [copyStatus, setCopyStatus] = useState('');
+
+    const tg = window.Telegram.WebApp;
+    const userTg = tg.initDataUnsafe.user;
+    const theme = tg.colorScheme;
+    const token = generateUserToken(userTg);
     const {user, loading, error} = useUser(token);
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
 
-    const tg = window.Telegram.WebApp;
-    const user1 = tg.initDataUnsafe.user;
-    console.log(user1);
-    const theme = tg.colorScheme;
 
+    const handleCopy = () => {
+        const inviteLink = `https://t.me/TONix_Hub_BOT?start=ref=${userTg.id}`; // Сформируйте вашу ссылку здесь
+        navigator.clipboard.writeText(inviteLink).then(() => {
+            setCopyStatus('Скопировано!');
+            setTimeout(() => setCopyStatus(''), 3000); // Очистка сообщения через 3 секунды
+        }).catch(err => {
+            console.error('Ошибка при копировании: ', err);
+        });
+    };
 
-    // eslint-disable-next-line react/prop-types
+    const handleSupportClick = () => {
+        const supportLink = 'https://t.me/TONixHubSupport'; // Ваша ссылка на поддержку здесь
+        window.open(supportLink, '_blank');
+    };
+
+    const handleClick = (title) => {
+        if (title === 'Пригласить друзей') {
+            handleCopy();
+        } else if (title === 'Поддержка') {
+            handleSupportClick();
+        }
+    };
+
     const MenuItem = ({icon, title, rightContent}) => {
         return (
-            <div className="flex items-center justify-between p-2 bg-[#E8F6FF] rounded-lg shadow-md mb-4">
+            <div
+                className={`flex items-center justify-between p-2 bg-[#E8F6FF] rounded-lg shadow-md mb-4 ${title === 'Пригласить друзей' ? 'cursor-pointer' : ''}`}
+                onClick={() => handleClick(title)}
+            >
                 <div className="flex items-center">
                     <img src={icon} alt={title} className="w-6 h-6 mr-4"/>
                     <span className="text-lg font-bold text-black">{title}</span>
                 </div>
-                {rightContent && (
-                    <div className="flex items-center text-black">
-                        {rightContent}
-                    </div>
-                )}
+                <div className="flex items-center text-black">
+                    {title === 'Пригласить друзей' ? copyStatus : rightContent}
+                </div>
             </div>
         );
     };
@@ -51,7 +75,7 @@ const Profile = () => {
                              className="w-18 h-16"/>
                         <div className="ml-2">
                             <div className="text-lg font-bold">Привет,</div>
-                            <div className="text-md">{user1.first_name} {user1.last_name}</div>
+                            <div className="text-md">{userTg.first_name} {userTg.last_name}</div>
                         </div>
                     </div>
                     <div className="flex items-center">
@@ -83,7 +107,7 @@ const Profile = () => {
                     <MenuItem
                         icon="/assets/idIcon.png"
                         title="Мой ID"
-                        rightContent={<span className="text-lg">{user1.id}</span>}
+                        rightContent={<span className="text-lg">{userTg.id}</span>}
                     />
                     <MenuItem
                         icon="/assets/languageIcon.png"

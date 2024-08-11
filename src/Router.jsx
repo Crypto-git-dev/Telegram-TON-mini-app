@@ -10,6 +10,7 @@ import Nft from './pages/Nft.jsx';
 import BuySubcribe from './pages/BuySubcribe.jsx';
 import ChooseSubscribe from './pages/ChooseSubscribe.jsx';
 import Stats from './pages/Stats.jsx';
+import AirDropOne from './pages/AirDropOne.jsx';
 
 export const RouteList = [
     {
@@ -31,6 +32,11 @@ export const RouteList = [
         path : '/airdrop',
         title : 'AirDrop',
         element : <AirDrop/>,
+    },
+    {
+        path : '/airdrop/:id',
+        title : 'AirDropOne',
+        element : <AirDropOne/>,
     },
     {
         path : '/nft',
