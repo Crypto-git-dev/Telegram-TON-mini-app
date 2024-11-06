@@ -2,8 +2,5 @@
 # TONixHUB_frontend
 React + Vite
 
-
-$ npm create vite@latest сборка папок 
+$ npm create vite@latest
 $ npm install
-
-
